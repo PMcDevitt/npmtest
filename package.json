@@ -1,0 +1,33 @@
+{
+  "name": "npmtest",
+  "version": "0.0.0",
+  "description": "Setup Makefile",
+  "main": "index.js",
+  "directories": {
+    "example": "examples",
+    "lib": "lib",
+    "test": "test"
+  },
+  "dependencies": {
+    "chai": "^4.2.0"
+  },
+  "devDependencies": {
+    "mocha": "^7.1.1"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PMcDevitt/npmtest.git"
+  },
+  "keywords": [
+    "npm"
+  ],
+  "author": "Patrick McDevitt <mcdevitt@live.ie>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PMcDevitt/npmtest/issues"
+  },
+  "homepage": "https://github.com/PMcDevitt/npmtest#readme"
+}
