@@ -8,7 +8,28 @@
           "name": "Scan",
           "organization": "Contrast Security",
           "version": "pkg: null, engine: null, policy: null",
-          "informationUri": "https://www.contrastsecurity.com"
+          "informationUri": "https://www.contrastsecurity.com",
+          "rules": [
+            {
+              "id": "3f292041e51d22005ce48f39df3585d44ce1b0ad",
+              "name": "path-traversal",
+              "shortDescription": {
+                "text": "Unused variable, import, function or class"
+              },
+              "fullDescription": {
+                "text": "Unused variables, imports, functions or classes may be a symptom of a bug and should be examined carefully."
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "properties": {
+                "tags": [
+                  "maintainability"
+                ],
+                "precision": "very-high"
+              }
+            }
+          ]
         }
       },
       "artifacts": [],
@@ -336,21 +357,12 @@
               }
             }
           ],
-          "shortDescription": {
-            "text": "Code injection"
-        },
-        "fullDescription": {
-            "text": "Interpreting unsanitized user input as code allows a malicious user arbitrary code execution."
-        },
-        "defaultConfiguration": {
-            "level": "wwwwwwwwww"
-        },
-        "properties": {
+          "properties": {
             "tags": [
-                "security",
-                "external/cwe/cwe-094",
-                "external/cwe/cwe-079",
-                "external/cwe/cwe-116"
+              "security",
+              "external/cwe/cwe-094",
+              "external/cwe/cwe-079",
+              "external/cwe/cwe-116"
             ],
             "kind": "path-problem",
             "precision": "high",
@@ -358,11 +370,7 @@
             "description": "Interpreting unsanitized user input as code allows a malicious user arbitrary\n              code execution.",
             "id": "js/code-injection",
             "problem.severity": "error"
-        },
-        "help": {
-            "text": "Some help text here",
-            "markdown": "Some help text here"
-        }
+          }
         }
       ],
       "properties": {
