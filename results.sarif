@@ -12,13 +12,13 @@
           "rules": [
             {
               "id": "path-traversal",
-              "name": "path-traversal",
+              "name": "Path Traversal Name",
               "help": {
                 "text": "THIS IS TEXT",
-                "markdown": "# Rule EX0001: Don't do bad things\nIt is _really_ not nice to do bad things."
+                "markdown": "# Rule path-traversal: Don't do bad things\nIt is _really_ not nice to do bad things."
               },
               "shortDescription": {
-                "text": "Path Traversal"
+                "text": "Path Traversal SD"
               },
               "fullDescription": {
                 "text": "Path Traversal Unused variables, imports, functions or classes may be a symptom of a bug and should be examined carefully."
