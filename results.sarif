@@ -373,7 +373,8 @@
             "name": "Code injection",
             "description": "Interpreting unsanitized user input as code allows a malicious user arbitrary\n              code execution.",
             "id": "js/code-injection",
-            "problem.severity": "error"
+            "problem.severity": "error",
+            "security-severity": "9.8"
           }
         }
       ],
