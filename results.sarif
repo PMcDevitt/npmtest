@@ -11,16 +11,16 @@
           "informationUri": "https://www.contrastsecurity.com",
           "rules": [
             {
-              "id": "3f292041e51d22005ce48f39df3585d44ce1b0ad",
+              "id": "path-traversal",
               "name": "path-traversal",
               "shortDescription": {
-                "text": "Unused variable, import, function or class"
+                "text": "Path Traversal"
               },
               "fullDescription": {
-                "text": "Unused variables, imports, functions or classes may be a symptom of a bug and should be examined carefully."
+                "text": "Path Traversal Unused variables, imports, functions or classes may be a symptom of a bug and should be examined carefully."
               },
               "defaultConfiguration": {
-                "level": "note"
+                "level": "error"
               },
               "properties": {
                 "tags": [
@@ -35,8 +35,8 @@
       "artifacts": [],
       "results": [
         {
-          "ruleId": "3f292041e51d22005ce48f39df3585d44ce1b0ad",
-          "level": "error",
+          "ruleId": "path-traversal",
+          "level": "note",
           "message": {
             "text": "path-traversal in ProfileUploadBase.execute() reachable from ProfileUploadFix.uploadFileHandler()"
           },
