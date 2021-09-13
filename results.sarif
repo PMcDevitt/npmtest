@@ -1,0 +1,447 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Scan",
+          "organization": "Contrast Security",
+          "version": "pkg: null, engine: null, policy: null",
+          "informationUri": "https://www.contrastsecurity.com"
+        }
+      },
+      "artifacts": [],
+      "results": [
+        {
+          "ruleId": "path-traversal",
+          "level": "error",
+          "message": {
+            "text": "path-traversal in ProfileUploadBase.execute() reachable from ProfileUploadFix.uploadFileHandler()"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "ProfileUploadBase.java"
+                },
+                "region": {
+                  "startLine": 45,
+                  "startColumn": 1,
+                  "snippet": {
+                    "text": "AttackResult execute(MultipartFile file, String fullName) {\n  ...\n  $stack0 = new File();    // Java line 45\n  $stack0.<init>(uploadDirectory, fullName);    // Java line 45\n  ...\n}"
+                  }
+                },
+                "contextRegion": {
+                  "snippet": {}
+                }
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "message": {
+                "text": "Untrusted data flow from ProfileUploadFix.java:31 via variable `fullName` to ProfileUploadBase.java:45 via variable `fullName`"
+              },
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ProfileUploadFix.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 31,
+                            "snippet": {
+                              "rendered": {
+                                "text": "@PostMapping(value={\"/PathTraversal/profile-upload-fix\"}, consumes={\"*/*\"}, produces={\"application/json\"})\n@ResponseBody\npublic AttackResult uploadFileHandler(@RequestParam(value=\"uploadedFileFix\") MultipartFile file, @RequestParam(value=\"fullNameFix\", required=false) String fullName) {\n  ...\n  $stack0 = this;    // Java line 31\n  $stack1 = file;    // Java line 31\n  $stack3 = \"../\";    // Java line 31\n  $stack4 = \"\";    // Java line 31\n  $stack2 = fullName.replace($stack3, $stack4);    // Java line 31\n  $stack0 = $stack0.execute($stack1, $stack2);    // Java line 31\n  ...\n}"
+                              }
+                            },
+                            "message": {
+                              "text": "We traced untrusted data from entrypoint 'ProfileUploadFix.uploadFileHandler()' at 'ProfileUploadFix.java:31' via variable 'fullName'"
+                            },
+                            "properties": {
+                              "ir": [
+                                "$stack0 = this;    // Java line 31",
+                                "$stack1 = file;    // Java line 31",
+                                "$stack3 = \"../\";    // Java line 31",
+                                "$stack4 = \"\";    // Java line 31",
+                                "$stack2 = virtualinvoke fullName.<java.lang.String: java.lang.String replace(java.lang.CharSequence, java.lang.CharSequence)>($stack3, $stack4);    // Java line 31",
+                                "$stack0 = specialinvoke $stack0.<org.owasp.webgoat.path_traversal.ProfileUploadBase: org.owasp.webgoat.assignments.AttackResult execute(org.springframework.web.multipart.MultipartFile, java.lang.String)>($stack1, $stack2);    // Java line 31"
+                              ]
+                            }
+                          }
+                        },
+                        "logicalLocations": [
+                          {
+                            "name": "ProfileUploadFix.uploadFileHandler()",
+                            "fullyQualifiedName": "org.owasp.webgoat.path_traversal.ProfileUploadFix.uploadFileHandler(org.springframework.web.multipart.MultipartFile, java.lang.String)"
+                          }
+                        ],
+                        "message": {
+                          "text": "fullName"
+                        }
+                      },
+                      "state": {
+                        "fullName": {
+                          "text": "tainted",
+                          "properties": {
+                            "taintTags": [
+                              "untrusted",
+                              "cross-site"
+                            ]
+                          }
+                        }
+                      },
+                      "importance": "essential"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ProfileUploadBase.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 31,
+                            "snippet": {
+                              "rendered": {
+                                "text": "AttackResult execute(MultipartFile file, String fullName) {\n  ...\n  $stack0 = file.isEmpty();    // Java line 31\n  ...\n}"
+                              }
+                            },
+                            "properties": {
+                              "ir": [
+                                "$stack0 = interfaceinvoke file.<org.springframework.web.multipart.MultipartFile: boolean isEmpty()>();    // Java line 31"
+                              ]
+                            }
+                          }
+                        },
+                        "logicalLocations": [
+                          {
+                            "name": "ProfileUploadBase.execute()",
+                            "fullyQualifiedName": "org.owasp.webgoat.path_traversal.ProfileUploadBase.execute(org.springframework.web.multipart.MultipartFile, java.lang.String)"
+                          }
+                        ],
+                        "message": {
+                          "text": "fullName"
+                        }
+                      },
+                      "state": {
+                        "fullName": {
+                          "text": "tainted",
+                          "properties": {
+                            "taintTags": [
+                              "untrusted",
+                              "cross-site"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ProfileUploadBase.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 34,
+                            "snippet": {
+                              "rendered": {
+                                "text": "AttackResult execute(MultipartFile file, String fullName) {\n  ...\n  $stack0 = StringUtils.isEmpty(fullName);    // Java line 34\n  ...\n}"
+                              }
+                            },
+                            "message": {
+                              "text": "Propagation event of untrusted data occurred at 'ProfileUploadBase.java:34' in the method 'ProfileUploadBase.execute()' to variable 'fullName'"
+                            },
+                            "properties": {
+                              "ir": [
+                                "$stack0 = staticinvoke <org.springframework.util.StringUtils: boolean isEmpty(java.lang.Object)>(fullName);    // Java line 34"
+                              ]
+                            }
+                          }
+                        },
+                        "logicalLocations": [
+                          {
+                            "name": "ProfileUploadBase.execute()",
+                            "fullyQualifiedName": "org.owasp.webgoat.path_traversal.ProfileUploadBase.execute(org.springframework.web.multipart.MultipartFile, java.lang.String)"
+                          }
+                        ],
+                        "message": {
+                          "text": "fullName"
+                        }
+                      },
+                      "state": {
+                        "fullName": {
+                          "text": "tainted",
+                          "properties": {
+                            "taintTags": [
+                              "untrusted",
+                              "cross-site"
+                            ]
+                          }
+                        }
+                      },
+                      "importance": "essential"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ProfileUploadBase.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 38,
+                            "snippet": {
+                              "rendered": {
+                                "text": "AttackResult execute(MultipartFile file, String fullName) {\n  ...\n  $stack0 = new File();    // Java line 38\n  $stack2 = this.webGoatHomeDirectory;    // Java line 38\n  $stack3 = this.webSession;    // Java line 38\n  $stack3 = $stack3.getUserName();    // Java line 38\n  $stack3 = dynamicinvoke \"makeConcatWithConstants\" <String (String)>($stack3) CallSite makeConcatWithConstants(MethodHandles$Lookup, String, MethodType, String, Object[])(\"/PathTraversal/\u0001\");    // Java line 38\n  $stack0.<init>($stack2, $stack3);    // Java line 38\n  uploadDirectory = $stack0;    // Java line 38\n  ...\n}"
+                              }
+                            },
+                            "properties": {
+                              "ir": [
+                                "$stack0 = new java.io.File;    // Java line 38",
+                                "$stack2 = this.<org.owasp.webgoat.path_traversal.ProfileUploadBase:java.lang.String webGoatHomeDirectory>;    // Java line 38",
+                                "$stack3 = this.<org.owasp.webgoat.path_traversal.ProfileUploadBase:org.owasp.webgoat.session.WebSession webSession>;    // Java line 38",
+                                "$stack3 = virtualinvoke $stack3.<org.owasp.webgoat.session.WebSession: java.lang.String getUserName()>();    // Java line 38",
+                                "$stack3 = dynamicinvoke \"makeConcatWithConstants\" <java.lang.String (java.lang.String)>($stack3) <java.lang.invoke.StringConcatFactory: java.lang.invoke.CallSite makeConcatWithConstants(java.lang.invoke.MethodHandles$Lookup, java.lang.String, java.lang.invoke.MethodType, java.lang.String, java.lang.Object[])>(\"/PathTraversal/\u0001\");    // Java line 38",
+                                "specialinvoke $stack0.<java.io.File: void <init>(java.lang.String, java.lang.String)>($stack2, $stack3);    // Java line 38",
+                                "uploadDirectory = $stack0;    // Java line 38"
+                              ]
+                            }
+                          }
+                        },
+                        "logicalLocations": [
+                          {
+                            "name": "ProfileUploadBase.execute()",
+                            "fullyQualifiedName": "org.owasp.webgoat.path_traversal.ProfileUploadBase.execute(org.springframework.web.multipart.MultipartFile, java.lang.String)"
+                          }
+                        ],
+                        "message": {
+                          "text": "fullName"
+                        }
+                      },
+                      "state": {
+                        "fullName": {
+                          "text": "tainted",
+                          "properties": {
+                            "taintTags": [
+                              "untrusted",
+                              "cross-site"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ProfileUploadBase.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 39,
+                            "snippet": {
+                              "rendered": {
+                                "text": "AttackResult execute(MultipartFile file, String fullName) {\n  ...\n  $stack0 = $stack0.exists();    // Java line 39\n  ...\n}"
+                              }
+                            },
+                            "properties": {
+                              "ir": [
+                                "$stack0 = virtualinvoke $stack0.<java.io.File: boolean exists()>();    // Java line 39"
+                              ]
+                            }
+                          }
+                        },
+                        "logicalLocations": [
+                          {
+                            "name": "ProfileUploadBase.execute()",
+                            "fullyQualifiedName": "org.owasp.webgoat.path_traversal.ProfileUploadBase.execute(org.springframework.web.multipart.MultipartFile, java.lang.String)"
+                          }
+                        ],
+                        "message": {
+                          "text": "fullName"
+                        }
+                      },
+                      "state": {
+                        "fullName": {
+                          "text": "tainted",
+                          "properties": {
+                            "taintTags": [
+                              "untrusted",
+                              "cross-site"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "ProfileUploadBase.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 45,
+                            "snippet": {
+                              "rendered": {
+                                "text": "AttackResult execute(MultipartFile file, String fullName) {\n  ...\n  $stack0 = new File();    // Java line 45\n  $stack0.<init>(uploadDirectory, fullName);    // Java line 45\n  ...\n}"
+                              }
+                            },
+                            "message": {
+                              "text": "This data was used dangerously at 'ProfileUploadBase.java:45' in the method 'ProfileUploadBase.execute()' via variable 'fullName'"
+                            },
+                            "properties": {
+                              "ir": [
+                                "$stack0 = new java.io.File;    // Java line 45",
+                                "specialinvoke $stack0.<java.io.File: void <init>(java.io.File, java.lang.String)>(uploadDirectory, fullName);    // Java line 45"
+                              ]
+                            }
+                          }
+                        },
+                        "logicalLocations": [
+                          {
+                            "name": "ProfileUploadBase.execute()",
+                            "fullyQualifiedName": "org.owasp.webgoat.path_traversal.ProfileUploadBase.execute(org.springframework.web.multipart.MultipartFile, java.lang.String)"
+                          }
+                        ],
+                        "message": {
+                          "text": "fullName"
+                        }
+                      },
+                      "state": {
+                        "fullName": {
+                          "text": "tainted",
+                          "properties": {
+                            "taintTags": [
+                              "untrusted",
+                              "cross-site"
+                            ]
+                          }
+                        }
+                      },
+                      "importance": "essential"
+                    }
+                  ]
+                }
+              ],
+              "properties": {
+                "routeSignature": "org.owasp.webgoat.path_traversal.ProfileUploadFix.uploadFileHandler(org.springframework.web.multipart.MultipartFile,java.lang.String)"
+              }
+            }
+          ]
+        }
+      ],
+      "properties": {
+        "scannedData": {
+          "scannedBodyClasses": [
+            "org.wildfly.common.selector.Selector$2",
+            "com.zaxxer.hikari.metrics.micrometer.MicrometerMetricsTracker$$$_umbrella_deLambda2"
+          ],
+          "nonScannedBodyClasses": [
+            "com.beust.jcommander.internal.Maps",
+            "org.springframework.web.bind.annotation.Mapping"
+          ],
+          "phantomClasses": [
+            "aj.org.objectweb.asm.ClassWriter",
+            "com.codahale.metrics.Snapshot",
+            "BOOT-INF.classes.org.owasp.webgoat.HSQLDBDatabaseConfig"
+          ],
+          "methodCount": 51728,
+          "methodWithBodyCount": 5071,
+          "fileCount": 1,
+          "dangerousCalls": [
+            {
+              "ruleId": "path-traversal",
+              "location": {
+                "artifactLocation": {
+                  "uri": "Salaries.java"
+                },
+                "region": {
+                  "startLine": 61,
+                  "snippet": {
+                    "text": "$stack0.<init>($stack2, $stack3);    // Java line 61"
+                  }
+                }
+              }
+            },
+            {
+              "ruleId": "log-injection",
+              "location": {
+                "artifactLocation": {
+                  "uri": "HikariDataSource.java"
+                },
+                "region": {
+                  "startLine": 123,
+                  "snippet": {
+                    "text": "$stack0.info($stack1, $stack2);    // Java line 123"
+                  }
+                }
+              }
+            }
+          ],
+          "untrustedDataFlows": [
+            {
+              "location": {
+                "artifactLocation": {
+                  "uri": "HikariProxyCallableStatement.java"
+                },
+                "region": {
+                  "startLine": -1,
+                  "snippet": {
+                    "text": "$stack0 = $local0.getResultSet();"
+                  }
+                }
+              },
+              "entryPoint": "TODO - no entry point"
+            },
+            {
+              "location": {
+                "artifactLocation": {
+                  "uri": "Users.java"
+                },
+                "region": {
+                  "startLine": 56,
+                  "snippet": {
+                    "text": "$local4 = $local3.executeQuery($local2);    // Java line 56"
+                  }
+                }
+              },
+              "entryPoint": "TODO - no entry point"
+            }
+          ]
+        },
+        "routesDiscovered": [
+          {
+            "routeSignature": "org.owasp.webgoat.idor.IDORViewOtherProfile.completed(java.lang.String,javax.servlet.http.HttpServletResponse)"
+          },
+          {
+            "routeSignature": "org.owasp.webgoat.csrf.ForgedReviews.createNewReview(java.lang.String,java.lang.Integer,java.lang.String,javax.servlet.http.HttpServletRequest)"
+          }
+        ]
+      },
+      "invocations": [
+        {
+          "commandLine": "java -Xms2g -Xmx12g -jar /Users/patrickmcdevitt/workspace/harmony/scan-cli-testing/contrast-scan-java-cli-2.0.0.715.jar ./apps/webgoat-server-8.2.1.jar",
+          "toolExecutionNotifications": [
+            {
+              "message": {
+                "text": "[org.owasp.webgoat.challenges.challenge7.Assignment7.sendPasswordResetLink(java.lang.String,javax.servlet.http.HttpServletRequest)] entrypoint analysis timeout."
+              },
+              "descriptor": {
+                "id": "EntrypointAnalysis/maxTimeExceeded"
+              }
+            }
+          ],
+          "executionSuccessful": true
+        }
+      ]
+    }
+  ]
+}
