@@ -13,6 +13,10 @@
             {
               "id": "path-traversal",
               "name": "path-traversal",
+              "help": {
+                "text": "THIS IS TEXT",
+                "markdown": "# Rule EX0001: Don't do bad things\nIt is _really_ not nice to do bad things."
+              },
               "shortDescription": {
                 "text": "Path Traversal"
               },
