@@ -35,7 +35,7 @@
       "artifacts": [],
       "results": [
         {
-          "ruleId": "path-traversal",
+          "ruleId": "3f292041e51d22005ce48f39df3585d44ce1b0ad",
           "level": "error",
           "message": {
             "text": "path-traversal in ProfileUploadBase.execute() reachable from ProfileUploadFix.uploadFileHandler()"
