@@ -15,10 +15,10 @@
               "name": "Path Traversal Name",
               "help": {
                 "text": "THIS IS TEXT",
-                "markdown": "# Rule path-traversal: Don't do bad things\nIt is _really_ not nice to do bad things."
+                "markdown": "# Rule path-traversal: Don't do bad things {0} \nIt is _really_ not nice to do bad things. {1}"
               },
               "shortDescription": {
-                "text": "Path Traversal SD"
+                "text": "Path Traversal SD {0}"
               },
               "fullDescription": {
                 "text": "Path Traversal Unused variables, imports, functions or classes may be a symptom of a bug and should be examined carefully."
@@ -40,7 +40,7 @@
       "results": [
         {
           "ruleId": "path-traversal",
-          "level": "note",
+          "level": "error",
           "message": {
             "text": "path-traversal in ProfileUploadBase.execute() reachable from ProfileUploadFix.uploadFileHandler()"
           },
